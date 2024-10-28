@@ -42,7 +42,6 @@ public class Admin extends User {
     @Override
     public String toString() {
         return "Admin{" +
-                "id_admin=" + id_admin +
                 '}';
     }
 }
