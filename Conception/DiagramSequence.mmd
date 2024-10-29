@@ -1,0 +1,45 @@
+sequenceDiagram
+    autonumber
+    participant Utilisateur
+    participant API_Spring_Boot
+    participant Service_Vol
+    participant Service_Avion
+    participant Service_Equipage
+    participant Service_Aéroport
+    participant Service_Réservation
+    participant Service_Passager
+    participant JWT_Auth
+
+    Utilisateur->>+API_Spring_Boot: Se connecter (Creds)
+    API_Spring_Boot->>+JWT_Auth: Vérifier l'authentification
+    JWT_Auth-->>-API_Spring_Boot: Jeton JWT valide
+    API_Spring_Boot-->>-Utilisateur: Jeton JWT
+
+    Utilisateur->>+API_Spring_Boot: Ajouter un vol (Détails)
+    API_Spring_Boot->>+JWT_Auth: Vérifier le jeton JWT
+    JWT_Auth-->>-API_Spring_Boot: Jeton valide
+    API_Spring_Boot->>+Service_Vol: Créer vol (code IATA, numéro vol, date, aéroports, avion)
+    Service_Vol->>Service_Avion: Récupérer informations avion
+    Service_Vol->>Service_Equipage: Assigner équipage
+    Service_Vol->>Service_Aéroport: Assigner aéroports (départ et arrivée)
+    Service_Vol-->>-API_Spring_Boot: Vol ajouté
+    API_Spring_Boot-->>-Utilisateur: Vol ajouté avec succès
+
+    Utilisateur->>+API_Spring_Boot: Ajouter passager (Nom, Passeport, Contact)
+    API_Spring_Boot->>+JWT_Auth: Vérifier le jeton JWT
+    JWT_Auth-->>-API_Spring_Boot: Jeton valide
+    API_Spring_Boot->>+Service_Passager: Ajouter passager
+    Service_Passager-->>-API_Spring_Boot: Passager ajouté
+    API_Spring_Boot-->>-Utilisateur: Passager ajouté avec succès
+
+    Utilisateur->>+API_Spring_Boot: Faire une réservation (Détails)
+    API_Spring_Boot->>+JWT_Auth: Vérifier le jeton JWT
+    JWT_Auth-->>-API_Spring_Boot: Jeton valide
+    API_Spring_Boot->>+Service_Réservation: Créer réservation (ID, vol, passagers, date, statut)
+    Service_Réservation-->>-API_Spring_Boot: Réservation confirmée
+    API_Spring_Boot-->>-Utilisateur: Réservation réussie
+
+    Utilisateur->>+API_Spring_Boot: Consulter vol (Numéro de vol)
+    API_Spring_Boot->>+Service_Vol: Obtenir informations vol
+    Service_Vol-->>-API_Spring_Boot: Détails du vol
+    API_Spring_Boot-->>-Utilisateur: Informations du vol
