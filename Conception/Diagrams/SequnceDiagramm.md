@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     participant Administrateur
     participant Utilisateur
@@ -53,3 +54,4 @@ sequenceDiagram
     Utilisateur->>System: supprimerRéservation(idRéservation)
     System->>Reservation: suppression de la réservation
     System-->>Utilisateur: confirmation de la suppression
+    ```
