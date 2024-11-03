@@ -1,6 +1,6 @@
 package com.example.MiniProject;
 
-public interface Gesgtion {
+public interface Gestion {
     public static void ajouter(){
 
     }

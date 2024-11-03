@@ -3,10 +3,12 @@ package com.example.MiniProject.Reservation;
 import com.example.MiniProject.Passager.Passager;
 import com.example.MiniProject.Vol.Vol;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
-
+@Entity
+@Data
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

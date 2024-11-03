@@ -45,14 +45,18 @@ application.properties: Main configuration file for environment settings.
 static/ and templates/ (if using front-end components): Holds static assets and templates.
 ## Project Contributors
 Contributors:
-Student 1: (Hajar Ousghou, Role)
+Student 1: ([OUSGHOU Hajar](https://www.linkedin.com/in/hajar-ousghou-38044622b/), Role)
+
 Student 2: (Hasnae Oulhmous, Role)
+
 Student 3: (Kasmi Ibrahim, Role)
+
 Student 4: (Mounir ELhattab, Role)
+
 Student 5: (Aymane Marrouk, Role)
 
 ## Supervisor
-Supervisor: Prof. Bahaa Eddine ELBAGHAZAOUI.
+Supervisor: [Prof. Bahaa Eddine ELBAGHAZAOUI](https://www.linkedin.com/in/bahaa-eddine/).
 
 ## Auteurs et remerciements
 Informations sur les auteurs et remerciements aux contributeurs.
