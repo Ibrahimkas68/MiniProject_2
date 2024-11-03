@@ -1,11 +1,14 @@
 package com.example.MiniProject.User;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 import java.util.Objects;
-
+@Entity
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +29,10 @@ public class User {
         this.password = password;
         this.email = email;
         NomComplet = nomComplet;
+    }
+
+    public User() {
+
     }
 
     public Long getId() {
