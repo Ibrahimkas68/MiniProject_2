@@ -1,2 +1,8 @@
-package com.example.MiniProject.Vol;public interface VolRepo {
+package com.example.MiniProject.Vol;
+
+import org.springframework.stereotype.Repository;
+
+public
+@Repository
+interface VolRepo {
 }

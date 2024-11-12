@@ -1,2 +1,8 @@
-package com.example.MiniProject.Passager;public interface PassagerRepo {
+package com.example.MiniProject.Passager;
+
+import org.springframework.stereotype.Repository;
+
+public
+@Repository
+interface PassagerRepo {
 }

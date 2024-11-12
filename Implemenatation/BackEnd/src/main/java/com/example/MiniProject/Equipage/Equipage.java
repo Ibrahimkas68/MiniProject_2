@@ -6,8 +6,7 @@ import lombok.Data;
 import java.util.Objects;
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-
+@Table(name = "equipage")
 public class Equipage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

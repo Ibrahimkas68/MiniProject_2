@@ -1,11 +1,13 @@
 package com.example.MiniProject.Aeorport;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Objects;
 
+@Entity
+@Data
+@Table(name = "aeroport")
 public class Aero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +27,7 @@ public class Aero {
         this.capacite = capacite;
     }
 
+    public Aero() {
+
+    }
 }

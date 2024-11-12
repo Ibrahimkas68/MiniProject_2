@@ -1,14 +1,15 @@
 package com.example.MiniProject.Admin;
 
-import com.example.MiniProject.User.User;
+import com.example.MiniProject.User.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Objects;
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Admin extends User {
+
+public class Admin extends UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_admin;
@@ -18,6 +19,10 @@ public class Admin extends User {
         super(password, email, nomComplet);
     }
 
+    public Admin(String password, String email, String nomComplet, Long id_admin) {
+        super(password, email, nomComplet);
+        this.id_admin = id_admin;
+    }
 
     public Admin() {
 

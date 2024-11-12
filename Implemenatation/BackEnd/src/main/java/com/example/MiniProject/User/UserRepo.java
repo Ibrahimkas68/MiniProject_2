@@ -1,2 +1,8 @@
-package com.example.MiniProject.User;public interface UserRepo {
+package com.example.MiniProject.User;
+
+import org.springframework.stereotype.Repository;
+
+public
+@Repository
+interface UserRepo {
 }

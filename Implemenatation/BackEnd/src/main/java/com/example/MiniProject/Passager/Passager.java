@@ -1,16 +1,15 @@
 package com.example.MiniProject.Passager;
 
-import com.example.MiniProject.User.User;
+import com.example.MiniProject.User.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.Objects;
+
 @Entity
 @Data
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-
-public class Passager extends User {
+@Table(name = "passager")
+public class Passager extends UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_passager;

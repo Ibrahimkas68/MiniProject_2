@@ -1,2 +1,8 @@
-package com.example.MiniProject.Reservation;public interface ReservationRepo {
+package com.example.MiniProject.Reservation;
+
+import org.springframework.stereotype.Repository;
+
+public
+@Repository
+interface ReservationRepo {
 }
