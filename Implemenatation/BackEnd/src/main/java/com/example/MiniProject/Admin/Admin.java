@@ -7,25 +7,19 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
 
 public class Admin extends UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_admin;
 
-
-    public Admin(Long id_admin , String password, String email, String nomComplet) {
-        super(password, email, nomComplet);
+    public Admin(Long id, String password, String email, String nomComplet) {
+        super(id, password, email, nomComplet);
     }
 
-    public Admin(String password, String email, String nomComplet, Long id_admin) {
+    public Admin(String password, String email, String nomComplet) {
         super(password, email, nomComplet);
-        this.id_admin = id_admin;
     }
 
     public Admin() {
-
     }
-    
 }

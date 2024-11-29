@@ -9,11 +9,10 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "passager")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Passager extends UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_passager;
-
     private String PasseportNum;
     private String CIN;
     private Date dateNAissance;
@@ -21,21 +20,26 @@ public class Passager extends UserEntity {
     private String adresse;
     private Integer numTell;
 
-
-
-
-    public Passager(Long id_passager ,String password, String email, String nomComplet,String PasseportNum,String CIN,Date dateNAissance,String Nationalite,String adresse,Integer numTell) {
-        super(password, email, nomComplet);
-        this.id_passager = id_passager;
-        this.PasseportNum = PasseportNum;
+    public Passager(Long id, String password, String email, String nomComplet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell) {
+        super(id, password, email, nomComplet);
+        PasseportNum = passeportNum;
         this.CIN = CIN;
         this.dateNAissance = dateNAissance;
-        this.Nationalite = Nationalite;
+        Nationalite = nationalite;
+        this.adresse = adresse;
+        this.numTell = numTell;
+    }
+
+    public Passager(String password, String email, String nomComplet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell) {
+        super(password, email, nomComplet);
+        PasseportNum = passeportNum;
+        this.CIN = CIN;
+        this.dateNAissance = dateNAissance;
+        Nationalite = nationalite;
         this.adresse = adresse;
         this.numTell = numTell;
     }
 
     public Passager() {
-        super();
     }
 }

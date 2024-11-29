@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Data
 @Table(name = "aeroport")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Aero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

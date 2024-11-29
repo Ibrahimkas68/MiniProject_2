@@ -11,6 +11,7 @@ import java.util.Objects;
 @Entity
 @Data
 @Table(name = "vol")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Vol implements Gestion{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
