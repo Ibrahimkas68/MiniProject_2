@@ -12,8 +12,13 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Passager extends UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String PasseportNum;
+    @SequenceGenerator(
+            name = "Passager_sequence",
+            sequenceName = "Passager_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "Passager_sequence")    private String PasseportNum;
     private String CIN;
     private Date dateNAissance;
     private String Nationalite;

@@ -9,7 +9,13 @@ import lombok.Data;
 @Table(name = "avion")
 public class Avion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "Avion_sequence",
+            sequenceName = "Avion_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "Avion_sequence")
     private Long id_avion;
     private String type_avion;
     private int capacite;

@@ -2,9 +2,7 @@ package com.example.MiniProject.Admin;
 
 import org.hibernate.internal.build.AllowNonPortable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,14 @@ public class AdminController {
     @GetMapping("/AllAdmins")
     public List<Admin> getAllAdmins() {
         return adminService.getAll();
+    }
+    @PutMapping("{AdminId}")
+    public void updateAdmin(@PathVariable Long AdminId,
+                             @RequestBody Admin admin,
+                             @RequestBody(required = false) String password ,
+                             @RequestBody(required = false) String email,
+                             @RequestBody(required = false) String nom_complet){
+
+        adminService.updateAdmin(AdminId,password,email,nom_complet);
     }
 }

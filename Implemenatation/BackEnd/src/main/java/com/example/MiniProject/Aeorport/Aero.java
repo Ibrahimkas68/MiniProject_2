@@ -11,7 +11,13 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Aero {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "Aero_sequence",
+            sequenceName = "Aero_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+    generator = "Aero_sequence")
     private Long id_aeroport;
     private String aeroport_IATA;
     private String nom_aeroport;

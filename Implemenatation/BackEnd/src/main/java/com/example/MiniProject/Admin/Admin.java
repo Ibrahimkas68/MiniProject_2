@@ -12,6 +12,8 @@ import lombok.EqualsAndHashCode;
 
 public class Admin extends UserEntity {
 
+
+
     public Admin(Long id, String password, String email, String nomComplet) {
         super(id, password, email, nomComplet);
     }

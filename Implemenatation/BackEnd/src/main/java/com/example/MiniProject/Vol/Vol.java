@@ -14,8 +14,13 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Vol implements Gestion{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_vol;
+    @SequenceGenerator(
+            name = "Vol_sequence",
+            sequenceName = "Vol_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "Vol_sequence")    private Long id_vol;
 
     private String codeIATA;
     private int numVol;
