@@ -8,6 +8,7 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "users")
+@MappedSuperclass
 public class UserEntity {
     @Id
     @SequenceGenerator(

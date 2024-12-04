@@ -12,7 +12,7 @@ import java.util.Objects;
 @Data
 @Table(name = "vol")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Vol implements Gestion{
+public class Vol {
     @Id
     @SequenceGenerator(
             name = "Vol_sequence",
@@ -20,8 +20,8 @@ public class Vol implements Gestion{
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "Vol_sequence")    private Long id_vol;
-
+            generator = "Vol_sequence")
+    private Long id_vol;
     private String codeIATA;
     private int numVol;
     private Date dateVol;

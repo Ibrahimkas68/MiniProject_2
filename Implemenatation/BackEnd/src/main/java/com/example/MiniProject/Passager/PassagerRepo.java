@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 public
 @Repository
-interface PassagerRepo extends JpaRepository<Passager, Integer> {
+interface PassagerRepo extends JpaRepository<Passager, Long> {
 
 }

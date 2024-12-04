@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 public
 @Repository
-interface AvionRepo extends JpaRepository<Avion, Integer> {
+interface AvionRepo extends JpaRepository<Avion, Long> {
 
 }

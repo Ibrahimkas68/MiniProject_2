@@ -1,10 +1,10 @@
 package com.example.MiniProject.Admin;
 
-import org.hibernate.internal.build.AllowNonPortable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/admin")
@@ -29,4 +29,13 @@ public class AdminController {
 
         adminService.updateAdmin(AdminId,password,email,nom_complet);
     }
+    @PutMapping("/addAdmin")
+    public void addAdmin(@RequestBody Admin admin){
+        adminService.addAdmin(admin);
+    }
+    @GetMapping("/getAdmin/{AdminId}")
+    public Optional<Admin> getAdmin(@PathVariable Long AdminId){
+        return adminService.getAdmin(AdminId);
+    }
+
 }
