@@ -7,6 +7,5 @@ import java.util.List;
 
 @Repository
 public interface AdminRepo extends JpaRepository<Admin, Long> {
-    void saveAll(List<Admin> admin1);
 
 }

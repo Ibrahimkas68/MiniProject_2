@@ -1,12 +1,12 @@
 package com.example.MiniProject.Vol;
 
 import com.example.MiniProject.Avion.Avion;
-import com.example.MiniProject.Gestion;
+import com.example.MiniProject.Reservation.Reservation;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,13 +14,7 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Vol {
     @Id
-    @SequenceGenerator(
-            name = "Vol_sequence",
-            sequenceName = "Vol_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "Vol_sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_vol;
     private String codeIATA;
     private int numVol;
@@ -28,9 +22,12 @@ public class Vol {
     private String IATADest;
     private String IATAOrig;
 
+
     @ManyToOne
     @JoinColumn(name = "id_avion", referencedColumnName = "id_avion")
     private Avion Avion;
+    @OneToMany(mappedBy = "numVol", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 
     public Vol(Long id_vol, String codeIATA, int numVol, Date dateVol, String IATADest, String IATAOrig, com.example.MiniProject.Avion.Avion avion) {
         this.id_vol = id_vol;

@@ -1,8 +1,16 @@
 package com.example.MiniProject.Admin;
 
+import com.example.MiniProject.Aeorport.Aero;
+import com.example.MiniProject.Vol.Vol;
+
+import com.example.MiniProject.Avion.Avion;
+
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,26 +24,149 @@ public class AdminController {
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
-    @GetMapping("/AllAdmins")
-    public List<Admin> getAllAdmins() {
-        return adminService.getAll();
-    }
-    @PutMapping("{AdminId}")
-    public void updateAdmin(@PathVariable Long AdminId,
-                             @RequestBody Admin admin,
-                             @RequestBody(required = false) String password ,
-                             @RequestBody(required = false) String email,
-                             @RequestBody(required = false) String nom_complet){
-
-        adminService.updateAdmin(AdminId,password,email,nom_complet);
-    }
-    @PutMapping("/addAdmin")
-    public void addAdmin(@RequestBody Admin admin){
+    @PostMapping("/admins")
+    public ResponseEntity<String> addAdmin(@RequestBody Admin admin) {
         adminService.addAdmin(admin);
+        return ResponseEntity.ok("Admin added successfully.");
     }
-    @GetMapping("/getAdmin/{AdminId}")
-    public Optional<Admin> getAdmin(@PathVariable Long AdminId){
-        return adminService.getAdmin(AdminId);
+
+    @GetMapping("/admins")
+    public ResponseEntity<List<Admin>> getAllAdmins() {
+        return ResponseEntity.ok(adminService.getAll());
+    }
+
+    @GetMapping("/admins/{id}")
+    public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
+        return adminService.getAdmin(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/admins/{id}")
+    @Transactional
+    public ResponseEntity<String> updateAdmin(@PathVariable Long id,
+                                              @RequestParam(required = false) String password,
+                                              @RequestParam(required = false) String email,
+                                              @RequestParam(required = false) String nomComplet) {
+        adminService.updateAdmin(id, password, email, nomComplet);
+        return ResponseEntity.ok("Admin updated successfully.");
+    }
+
+    @DeleteMapping("/admins/{id}")
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
+        adminService.deleteAdmin(id);
+        return ResponseEntity.ok("Admin deleted successfully.");
+    }
+
+    // ------------------ AVION CRUD ------------------
+
+    @PostMapping("/avions")
+    public ResponseEntity<String> addAvion(@RequestBody Avion avion) {
+        adminService.addAvion(avion);
+        return ResponseEntity.ok("Avion added successfully.");
+    }
+
+    @GetMapping("/avions")
+    public ResponseEntity<List<Avion>> getAllAvions() {
+        return ResponseEntity.ok(adminService.getAllAvions());
+    }
+
+    @GetMapping("/avions/{id}")
+    public ResponseEntity<Avion> getAvionById(@PathVariable Long id) {
+        Avion avion = adminService.getAvion(id);
+        return ResponseEntity.ok(avion);
+    }
+
+    @PutMapping("/avions/{id}")
+    @Transactional
+    public ResponseEntity<String> updateAvion(@PathVariable Long id,
+                                              @RequestParam(required = false) String typeAvion,
+                                              @RequestParam(required = false) Integer capacite,
+                                              @RequestParam(required = false) Integer anneeFab,
+                                              @RequestParam(required = false) String model) {
+        adminService.updateAvion(id, typeAvion, capacite, anneeFab, model);
+        return ResponseEntity.ok("Avion updated successfully.");
+    }
+
+    @DeleteMapping("/avions/{id}")
+    public ResponseEntity<String> deleteAvion(@PathVariable Long id) {
+        adminService.deleteAvion(id);
+        return ResponseEntity.ok("Avion deleted successfully.");
+    }
+
+    // ------------------ AEROPORT CRUD ------------------
+
+    @PostMapping("/aeroports")
+    public ResponseEntity<String> addAeroport(@RequestBody Aero aero) {
+        adminService.addAeroport(aero);
+        return ResponseEntity.ok("Aeroport added successfully.");
+    }
+
+    @GetMapping("/aeroports")
+    public ResponseEntity<List<Aero>> getAllAeroports() {
+        return ResponseEntity.ok(adminService.getAllAeroport());
+    }
+
+    @GetMapping("/aeroports/{id}")
+    public ResponseEntity<Aero> getAeroportById(@PathVariable Long id) {
+        Aero aero = adminService.getAero(id);
+        return ResponseEntity.ok(aero);
+    }
+
+    @PutMapping("/aeroports/{id}")
+    @Transactional
+    public ResponseEntity<String> updateAeroport(@PathVariable Long id,
+                                                 @RequestParam(required = false) String aeroportIATA,
+                                                 @RequestParam(required = false) String nomAeroport,
+                                                 @RequestParam(required = false) String ville,
+                                                 @RequestParam(required = false) String pays,
+                                                 @RequestParam(required = false) Integer capacite) {
+        adminService.updateAero(id, aeroportIATA, nomAeroport, ville, pays, capacite);
+        return ResponseEntity.ok("Aeroport updated successfully.");
+    }
+
+    @DeleteMapping("/aeroports/{id}")
+    public ResponseEntity<String> deleteAeroport(@PathVariable Long id) {
+        adminService.deleteAerport(id);
+        return ResponseEntity.ok("Aeroport deleted successfully.");
+    }
+
+    // ------------------ VOL CRUD ------------------
+
+    @PostMapping("/vols")
+    public ResponseEntity<String> addVol(@RequestBody Vol vol) {
+        adminService.addVol(vol);
+        return ResponseEntity.ok("Vol added successfully.");
+    }
+
+    @GetMapping("/vols")
+    public ResponseEntity<List<Vol>> getAllVols() {
+        return ResponseEntity.ok(adminService.getAllVol());
+    }
+
+    @GetMapping("/vols/{id}")
+    public ResponseEntity<Vol> getVolById(@PathVariable Long id) {
+        Vol vol = adminService.getVol(id);
+        return ResponseEntity.ok(vol);
+    }
+
+    @PutMapping("/vols/{id}")
+    @Transactional
+    public ResponseEntity<String> updateVol(@PathVariable Long id,
+                                            @RequestParam(required = false) String codeIATA,
+                                            @RequestParam(required = false) Integer numVol,
+                                            @RequestParam(required = false) Date dateVol,
+                                            @RequestParam(required = false) String IATADest,
+                                            @RequestParam(required = false) String IATAOrig) {
+        adminService.updateVol(id, codeIATA, numVol, dateVol, IATADest, IATAOrig);
+        return ResponseEntity.ok("Vol updated successfully.");
+    }
+
+    @DeleteMapping("/vols/{id}")
+    public ResponseEntity<String> deleteVol(@PathVariable Long id) {
+        adminService.deleteVol(id);
+        return ResponseEntity.ok("Vol deleted successfully.");
+
     }
 
 }

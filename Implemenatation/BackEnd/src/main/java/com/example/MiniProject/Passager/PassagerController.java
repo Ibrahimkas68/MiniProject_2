@@ -26,14 +26,14 @@ public class PassagerController {
     }
 
     // Get all Passagers
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity<List<Passager>> getAllPassagers() {
         List<Passager> passagers = passagerService.getAll();
         return ResponseEntity.ok(passagers);
     }
 
     // Get a Passager by ID
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<Passager> getPassagerById(@PathVariable Long id) {
         Passager passager = passagerService.getById(id);
         return ResponseEntity.ok(passager);

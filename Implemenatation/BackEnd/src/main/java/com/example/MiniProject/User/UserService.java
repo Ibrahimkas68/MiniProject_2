@@ -3,6 +3,8 @@ package com.example.MiniProject.User;
 import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepo userRepository;
@@ -19,5 +21,8 @@ public class UserService {
             return user.getPassword().equals(password); // Simple plain text comparison
         }
         return false;
+    }
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 }

@@ -10,8 +10,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.lang.foreign.ValueLayout;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +44,8 @@ public class AdminService {
     @Transactional
     public void updateAdmin(Long AdminId,String password, String email, String nom_complet) {
         Admin admin = adminRepo.findById(AdminId).orElseThrow(() -> new IllegalCallerException("Admin "+nom_complet+" not founded"));
-        if(nom_complet != null && !nom_complet.equals(admin.getNomComplet())) {
-            admin.setNomComplet(nom_complet);
+        if(nom_complet != null && !nom_complet.equals(admin.getNom_complet())) {
+            admin.setNom_complet(nom_complet);
         }
         if(password != null && !password.equals(admin.getPassword())) {
             admin.setPassword(password);

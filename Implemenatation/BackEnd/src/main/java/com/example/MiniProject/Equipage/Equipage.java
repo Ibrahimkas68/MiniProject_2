@@ -1,38 +1,32 @@
 package com.example.MiniProject.Equipage;
 
 import com.example.MiniProject.User.UserEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.util.Objects;
 @Entity
 @Data
-@DiscriminatorValue("EQUIPAGE")
+@Table(name = "equipage")// Value for this entity type in the discriminator column
+
 public class Equipage extends UserEntity {
-    @SequenceGenerator(
-            name = "Equipage_sequence",
-            sequenceName = "Equipage_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "Equipage_sequence")
     private String fonction;
     private int num_licence;
     private String nationalite;
 
-    public Equipage(Long id, String password, String email, String nomComplet, String fonction, int num_licence, String nationalite) {
-        super(id, password, email, nomComplet);
+    public Equipage(Long id, String userType, String password, String email, String nom_complet, String fonction, int num_licence, String nationalite) {
+        super(id, userType, password, email, nom_complet);
         this.fonction = fonction;
         this.num_licence = num_licence;
         this.nationalite = nationalite;
     }
 
-    public Equipage(String password, String email, String nomComplet, String fonction, int num_licence, String nationalite) {
-        super(password, email, nomComplet);
+    public Equipage(String userType, String password, String email, String nom_complet, String fonction, int num_licence, String nationalite) {
+        super(userType, password, email, nom_complet);
         this.fonction = fonction;
         this.num_licence = num_licence;
         this.nationalite = nationalite;
     }
+
 
     public Equipage() {
     }
