@@ -29,39 +29,30 @@ public class ReservationConfig {
                 // Fetch the Vol (flight)
                 Vol vol = volRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("Vol not found"));
 
-                // Fetch Passagers (Users with type "PASSAGER")
-                List<UserEntity> passagers = userRepo.findByUserType("PASSAGER");
+                // Fetch a single Passager (User with type "PASSAGER")
+                UserEntity userEntity = userRepo.findByUserType("PASSAGER")
+                        .stream()
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException("No passager found with user_type = 'PASSAGER'"));
 
-                if (passagers.isEmpty()) {
-                    throw new IllegalArgumentException("No passagers found with user_type = 'PASSAGER'");
+                if (!(userEntity instanceof Passager)) {
+                    throw new IllegalArgumentException("User is not a Passager instance");
                 }
+
+                Passager passager = (Passager) userEntity;
 
                 // Create and populate a new Reservation
                 Reservation reservation = new Reservation();
                 reservation.setNumVol(vol);
+                reservation.setPassager(passager);
                 reservation.setDateReserv(new Date());  // Set current date for the reservation
                 reservation.setStatus("Pending");
                 reservation.setPrix(200.00);  // Set the price
 
-                // Associate each Passager with the Reservation
-                List<Passager> updatedPassagers = new ArrayList<>();
-                for (UserEntity user : passagers) {
-                    if (user instanceof Passager) {
-                        Passager passager = (Passager) user;  // Cast UserEntity to Passager
-                        passager.setReservation(reservation);
-                        updatedPassagers.add(passager);
-                    } else {
-                        System.out.println("Skipping non-Passager user: " + user.getNom_complet());
-                    }
-                }
-
                 // Save the Reservation
                 reservationRepository.save(reservation);
 
-                // Save the updated Passagers with the Reservation linked
-                passagerRepo.saveAll(updatedPassagers);
-
-                System.out.println("Reservation and Passagers saved successfully!");
+                System.out.println("Reservation saved successfully for passager: " + passager.getNom_complet());
 
             } catch (Exception e) {
                 System.err.println("Error initializing Reservation data: " + e.getMessage());

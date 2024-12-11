@@ -12,7 +12,6 @@ import java.util.Date;
 @Data
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "passager")// Value for this entity type in the discriminator column
 public class Passager extends UserEntity {
     private String PasseportNum;
     private String CIN;

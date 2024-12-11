@@ -4,10 +4,11 @@ import com.example.MiniProject.User.UserEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name = "equipage")// Value for this entity type in the discriminator column
-
 public class Equipage extends UserEntity {
     private String fonction;
     private int num_licence;
