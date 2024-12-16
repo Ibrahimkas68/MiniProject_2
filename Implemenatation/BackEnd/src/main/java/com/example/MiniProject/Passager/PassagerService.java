@@ -15,7 +15,10 @@ public class PassagerService {
 
     // Create
     public Passager CPassager(Passager passager) {
-        return passagerRepository.save(passager);
+        if (!passagerRepository.existsByEmail(passager.getEmail())) {
+            return passagerRepository.save(passager);
+        }else throw new IllegalArgumentException("Passager with this email already exists.");
+
     }
 
     // Read All

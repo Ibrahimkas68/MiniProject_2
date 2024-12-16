@@ -1,5 +1,6 @@
 package com.example.MiniProject.Equipage;
 
+import com.example.MiniProject.User.Role;
 import com.example.MiniProject.User.UserEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -15,14 +16,14 @@ public class Equipage extends UserEntity {
     private String nationalite;
 
     public Equipage(Long id, String userType, String password, String email, String nom_complet, String fonction, int num_licence, String nationalite) {
-        super(id, userType, password, email, nom_complet);
+        super(id, Role.EQUIPAGE, password, email, nom_complet);
         this.fonction = fonction;
         this.num_licence = num_licence;
         this.nationalite = nationalite;
     }
 
     public Equipage(String userType, String password, String email, String nom_complet, String fonction, int num_licence, String nationalite) {
-        super(userType, password, email, nom_complet);
+        super(null,Role.EQUIPAGE, password, email, nom_complet);
         this.fonction = fonction;
         this.num_licence = num_licence;
         this.nationalite = nationalite;

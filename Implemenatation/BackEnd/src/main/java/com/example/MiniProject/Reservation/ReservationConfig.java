@@ -27,16 +27,15 @@ public class ReservationConfig {
         return args -> {
             try {
                 // Fetch the Vol (flight)
-                Vol vol = volRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("Vol not found"));
+                Vol vol = volRepository.findById(1L)
+                        .orElseThrow(() -> new IllegalArgumentException("Vol not found"));
 
-                // Fetch a single Passager (User with type "PASSAGER")
-                UserEntity userEntity = userRepo.findByUserType("PASSAGER")
-                        .stream()
-                        .findFirst()
-                        .orElseThrow(() -> new IllegalArgumentException("No passager found with user_type = 'PASSAGER'"));
+                // Fetch the Passager using UserEntity repository and filter by type 'PASSAGER'
+                UserEntity userEntity = userRepo.findById(1L)
+                        .orElseThrow(() -> new IllegalArgumentException("User with ID 1 not found"));
 
                 if (!(userEntity instanceof Passager)) {
-                    throw new IllegalArgumentException("User is not a Passager instance");
+                    throw new IllegalArgumentException("User with ID 1 is not a Passager");
                 }
 
                 Passager passager = (Passager) userEntity;
@@ -59,4 +58,5 @@ public class ReservationConfig {
             }
         };
     }
+
 }

@@ -20,9 +20,8 @@ public class PassagerConfig {
                 // Create Passager instances
                 Passager passager1 = new Passager(
                         1L,
-                        "PASSAGER",  // Fixed the missing comma here
                         "password",
-                        "ibrahimkasmi68@gmail.com",
+                        "ibrahim68@gmail.com",
                         "Kasmi Ibrahim",
                         "iia12973",
                         "ua128063",
@@ -35,9 +34,8 @@ public class PassagerConfig {
 
                 Passager passager2 = new Passager(
                         2L,
-                        "PASSAGER",
                         "anotherPassword",
-                        "ibrahimkasmi69@gmail.com",
+                        "kasmi69@gmail.com",
                         "Kasmi Another",
                         "iia12974",
                         "ua128064",
@@ -49,19 +47,20 @@ public class PassagerConfig {
                 );
 
                 // Check if Passagers already exist
-                if (!passagerRepo.existsById(1L)) {
+                if (!passagerRepo.existsByEmail(passager1.getEmail())) {
                     passagerRepo.save(passager1);
                     System.out.println("Saved Passager 1: " + passager1.getNom_complet());
                 } else {
                     System.out.println("Passager 1 already exists.");
                 }
 
-                if (!passagerRepo.existsById(2L)) {
+                if (!passagerRepo.existsByEmail(passager2.getEmail())) {
                     passagerRepo.save(passager2);
                     System.out.println("Saved Passager 2: " + passager2.getNom_complet());
                 } else {
                     System.out.println("Passager 2 already exists.");
                 }
+
 
             } catch (Exception e) {
                 System.err.println("Error initializing Passager data: " + e.getMessage());

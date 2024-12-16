@@ -1,6 +1,7 @@
 package com.example.MiniProject.Passager;
 
 import com.example.MiniProject.Reservation.Reservation;
+import com.example.MiniProject.User.Role;
 import com.example.MiniProject.User.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -24,8 +25,8 @@ public class Passager extends UserEntity {
     private Reservation reservation;
 
 
-    public Passager(Long id, String userType, String password, String email, String nom_complet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell, Reservation reservation) {
-        super(id, userType, password, email, nom_complet);
+    public Passager(Long id, String password, String email, String nom_complet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell, Reservation reservation) {
+        super(id, Role.PASSAGES, password, email, nom_complet);
         PasseportNum = passeportNum;
         this.CIN = CIN;
         this.dateNAissance = dateNAissance;
@@ -35,8 +36,8 @@ public class Passager extends UserEntity {
         this.reservation = reservation;
     }
 
-    public Passager(String userType, String password, String email, String nom_complet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell, Reservation reservation) {
-        super(userType, password, email, nom_complet);
+    public Passager( String password, String email, String nom_complet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell, Reservation reservation) {
+        super(Role.PASSAGES, password, email, nom_complet);
         PasseportNum = passeportNum;
         this.CIN = CIN;
         this.dateNAissance = dateNAissance;

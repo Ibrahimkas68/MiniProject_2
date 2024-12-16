@@ -1,9 +1,12 @@
 package com.example.MiniProject.User;
 
-import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
+
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -15,13 +18,15 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public boolean authenticateUser(String email, String password) {
-        UserEntity user = userRepo.findByEmail(email);
-        if (user != null) {
-            return user.getPassword().equals(password); // Simple plain text comparison
-        }
-        return false;
-    }
+//    public boolean authenticateUser(String email, String password) {
+//        Optional<UserEntity> UserEntity user = userRepo.findByEmail(email);
+//        if (user != null) {
+//            // Compare the plain text password with the stored password
+//            return password.equals(user.getPassword());
+//        }
+//        return false;
+//    }
+
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
