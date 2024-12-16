@@ -26,7 +26,7 @@ public class Passager extends UserEntity {
 
 
     public Passager(Long id, String password, String email, String nom_complet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell, Reservation reservation) {
-        super(id, Role.PASSAGES, password, email, nom_complet);
+        super(id, Role.PASSAGER, password, email, nom_complet);
         PasseportNum = passeportNum;
         this.CIN = CIN;
         this.dateNAissance = dateNAissance;
@@ -37,7 +37,7 @@ public class Passager extends UserEntity {
     }
 
     public Passager( String password, String email, String nom_complet, String passeportNum, String CIN, Date dateNAissance, String nationalite, String adresse, Integer numTell, Reservation reservation) {
-        super(Role.PASSAGES, password, email, nom_complet);
+        super(Role.PASSAGER, password, email, nom_complet);
         PasseportNum = passeportNum;
         this.CIN = CIN;
         this.dateNAissance = dateNAissance;

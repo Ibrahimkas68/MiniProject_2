@@ -17,10 +17,8 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserRepo userRepository;
     private final PasswordEncoder passwordEncoder;
-    private JwtService jwtService;
+    private final JwtService jwtService;  // Ensure this is injected properly
     private final AuthenticationManager authenticationManager;
-
-
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = UserEntity.builder()
@@ -30,7 +28,7 @@ public class AuthenticationService {
                 .userType(Role.ADMIN)
                 .build();
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user); // Now jwtService is injected and available
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -43,7 +41,7 @@ public class AuthenticationService {
                         request.getPassword())
         );
         var user = userRepository.findByEmail(request.getEmail());
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user); // jwtService is now injected
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
