@@ -11,11 +11,9 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepo userRepository;
-    private final UserRepo userRepo;
 
     public UserService(UserRepo userRepository, UserRepo userRepo) {
         this.userRepository = userRepository;
-        this.userRepo = userRepo;
     }
 
 //    public boolean authenticateUser(String email, String password) {

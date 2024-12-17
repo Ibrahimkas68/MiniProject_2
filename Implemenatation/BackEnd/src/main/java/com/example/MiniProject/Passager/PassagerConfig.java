@@ -1,26 +1,34 @@
 package com.example.MiniProject.Passager;
 
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 @Configuration
 public class PassagerConfig {
 
     @Bean(name = "passagerCommandLineRunner")
-    CommandLineRunner passagerCommandLineRunner(PassagerRepo passagerRepo) {
+    CommandLineRunner passagerCommandLineRunner(PassagerRepo passagerRepo, PasswordEncoder passwordEncoder) {
         return args -> {
             try {
                 // Create a date format
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 Date dateOfBirth = sdf.parse("02/08/2003");
 
+                // Encrypt passwords
+                String encryptedPassword1 = passwordEncoder.encode("password");
+                String encryptedPassword2 = passwordEncoder.encode("anotherPassword");
+
                 // Create Passager instances
                 Passager passager1 = new Passager(
                         1L,
-                        "password",
+                        encryptedPassword1, // Encrypted password
                         "ibrahim68@gmail.com",
                         "Kasmi Ibrahim",
                         "iia12973",
@@ -34,7 +42,7 @@ public class PassagerConfig {
 
                 Passager passager2 = new Passager(
                         2L,
-                        "anotherPassword",
+                        encryptedPassword2, // Encrypted password
                         "kasmi69@gmail.com",
                         "Kasmi Another",
                         "iia12974",
@@ -61,12 +69,9 @@ public class PassagerConfig {
                     System.out.println("Passager 2 already exists.");
                 }
 
-
             } catch (Exception e) {
                 System.err.println("Error initializing Passager data: " + e.getMessage());
             }
         };
     }
 }
-
-

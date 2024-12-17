@@ -11,6 +11,9 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     // Change the return type to Optional<UserEntity>
     UserEntity findByEmail(String email);
 
-    List<UserEntity> findByUserType(String userType);
+    boolean existsByEmail(String email);
+
+
+    List<UserEntity> findByUserType(Role userType);
 }
 

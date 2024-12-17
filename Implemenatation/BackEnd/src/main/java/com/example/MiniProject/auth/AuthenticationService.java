@@ -21,11 +21,16 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        // Check if a user with the given email already exists
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RuntimeException("User with this email already exists.");
+        }
+
         var user = UserEntity.builder()
                 .nom_complet(request.getNom_complet())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .userType(Role.ADMIN)
+                .userType(Role.PASSAGER)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user); // Now jwtService is injected and available
@@ -34,16 +39,26 @@ public class AuthenticationService {
                 .build();
     }
 
+//
+
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
-                        request.getPassword())
+                        request.getPassword()
+                )
         );
+
+        // Fetch user
         var user = userRepository.findByEmail(request.getEmail());
-        var jwtToken = jwtService.generateToken(user); // jwtService is now injected
+
+        // Generate JWT token
+        var jwtToken = jwtService.generateToken(user);
+
+        // Return the response with user_type
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .userType(user.getUserType()) // Ensure getUserType() exists in your User model
                 .build();
     }
 }
