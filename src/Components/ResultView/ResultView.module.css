@@ -1,0 +1,89 @@
+.container {
+    text-align: center;
+    width: 100%;
+}
+/**
+  Component
+**/
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    align-content: space-around;
+    vertical-align: middle;
+    width: 100%;
+    margin: 5px ;
+    padding: 5px;
+    background-color:white;
+    border: solid 1px;
+    border-radius: 5px;
+
+}
+
+.billet{
+    display: flex;
+    flex-direction:column;
+    flex-grow: 1;
+}
+
+.billetLeft{
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+
+.billetRight{
+    text-align: right;
+    margin-right: 50px;
+    margin-left: 50px;
+
+
+}
+.billetCenter{
+    display: flex;
+    flex-direction:column;
+    text-align: center;
+    flex-grow: 1;
+}
+
+
+
+.cardinputelement {
+    display: none;
+}
+
+.cardinput {
+    margin: 10px;
+    padding: 00px;
+}
+
+.cardinput:hover {
+    cursor: pointer;
+}
+
+.cardinputelement:checked {
+    box-shadow: 0 0 1px 1px #2ecc71;
+}
+
+.cardinput {
+    box-shadow: 0 0 1px 1px #2ecc71;
+}
+
+.green {
+    background-color: forestgreen;
+
+}
+
+.orange {
+    background-color: orange;
+}
+
+.blue {
+    background-color: rgb(132, 241, 255);
+}
+
+h3{
+    text-align: center;
+}

@@ -1,0 +1,84 @@
+.card{
+    padding: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+.icon{
+    display: flex;
+    flex-direction: row;
+    vertical-align: center;
+    align-items: space-around;
+    align-content:  space-around;
+    align-self: space-around;
+    text-align: center;
+}
+
+/**
+  Component
+**/
+
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    align-content: space-between;
+    vertical-align: middle;
+    width: 100%;
+    margin: 5px ;
+    padding: 5px;
+    background-color:white;
+    border: solid 1px;
+    border-radius: 5px
+}
+
+.billet{
+    display: flex;
+    flex-direction:column;
+    flex-grow: 1;
+}
+
+.billetRight{
+    border-left: 1px solid;
+    text-align: right;
+    flex-grow: 1;
+}
+
+
+
+
+.cardinputelement {
+    display: none;
+}
+
+.cardinput {
+    margin: 10px;
+    padding: 00px;
+}
+
+.cardinput:hover {
+    cursor: pointer;
+}
+
+.cardinputelement:checked {
+    box-shadow: 0 0 1px 1px #2ecc71;
+}
+
+.cardinput {
+    box-shadow: 0 0 1px 1px #2ecc71;
+}
+
+.green {
+    background-color: forestgreen;
+
+}
+
+.orange {
+    background-color: orange;
+}
+
+h3{
+    text-align: center;
+
+}

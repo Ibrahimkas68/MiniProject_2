@@ -1,0 +1,26 @@
+h1{
+    text-align: center;
+}
+
+html{
+    background-color: #ffffff;
+    background-image: url('https://www.inc-conso.fr/sites/default/files/avion-800_1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.body{
+    padding-top:5px;
+    /* max-width: 500px; */
+    height: 100vh; /* Magic here */
+}
+
+.container{
+    background-color: rgb(255, 255, 255);
+}
+
+

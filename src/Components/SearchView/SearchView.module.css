@@ -1,0 +1,21 @@
+.datepiker{
+
+    padding: 5px;
+    width: auto;
+    display:flex;
+    flex-direction:row;
+    align-content: space-between;
+    vertical-align: center;
+    align-items: center;
+
+}
+
+.center {
+    display: flex;
+    flex-direction: row;
+    align-content: space-around;
+    vertical-align: center;
+    align-items: center;
+    justify-items: center;
+
+}
