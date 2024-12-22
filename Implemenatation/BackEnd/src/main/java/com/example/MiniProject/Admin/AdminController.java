@@ -2,9 +2,7 @@ package com.example.MiniProject.Admin;
 
 import com.example.MiniProject.Aeorport.Aero;
 import com.example.MiniProject.Vol.Vol;
-
 import com.example.MiniProject.Avion.Avion;
-
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/admin")
@@ -24,6 +21,7 @@ public class AdminController {
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
+
     @PostMapping("/admins")
     public ResponseEntity<String> addAdmin(@RequestBody Admin admin) {
         adminService.addAdmin(admin);
@@ -58,8 +56,7 @@ public class AdminController {
         return ResponseEntity.ok("Admin deleted successfully.");
     }
 
-    // ------------------ AVION CRUD ------------------
-
+    // AVION CRUD
     @PostMapping("/avions")
     public ResponseEntity<String> addAvion(@RequestBody Avion avion) {
         adminService.addAvion(avion);
@@ -78,11 +75,8 @@ public class AdminController {
     }
 
     @PutMapping("/avions/{id}")
-    @Transactional
-    public ResponseEntity<String> updateAvion(@PathVariable Long id,
-                                              @RequestParam(required = false) String typeAvion,
-                                              @RequestParam(required = false) Integer capacite,
-                                              @RequestParam(required = false) Integer anneeFab,
+    public ResponseEntity<String> updateAvion(@PathVariable Long id, @RequestParam(required = false) String typeAvion,
+                                              @RequestParam(required = false) int capacite, @RequestParam(required = false) int anneeFab,
                                               @RequestParam(required = false) String model) {
         adminService.updateAvion(id, typeAvion, capacite, anneeFab, model);
         return ResponseEntity.ok("Avion updated successfully.");
@@ -94,8 +88,7 @@ public class AdminController {
         return ResponseEntity.ok("Avion deleted successfully.");
     }
 
-    // ------------------ AEROPORT CRUD ------------------
-
+    // AEROPORT CRUD
     @PostMapping("/aeroports")
     public ResponseEntity<String> addAeroport(@RequestBody Aero aero) {
         adminService.addAeroport(aero);
@@ -104,7 +97,7 @@ public class AdminController {
 
     @GetMapping("/aeroports")
     public ResponseEntity<List<Aero>> getAllAeroports() {
-        return ResponseEntity.ok(adminService.getAllAeroport());
+        return ResponseEntity.ok(adminService.getAllAeroports());
     }
 
     @GetMapping("/aeroports/{id}")
@@ -114,25 +107,20 @@ public class AdminController {
     }
 
     @PutMapping("/aeroports/{id}")
-    @Transactional
-    public ResponseEntity<String> updateAeroport(@PathVariable Long id,
-                                                 @RequestParam(required = false) String aeroportIATA,
-                                                 @RequestParam(required = false) String nomAeroport,
-                                                 @RequestParam(required = false) String ville,
-                                                 @RequestParam(required = false) String pays,
-                                                 @RequestParam(required = false) Integer capacite) {
+    public ResponseEntity<String> updateAeroport(@PathVariable Long id, @RequestParam(required = false) String aeroportIATA,
+                                                 @RequestParam(required = false) String nomAeroport, @RequestParam(required = false) String ville,
+                                                 @RequestParam(required = false) String pays, @RequestParam(required = false) int capacite) {
         adminService.updateAero(id, aeroportIATA, nomAeroport, ville, pays, capacite);
         return ResponseEntity.ok("Aeroport updated successfully.");
     }
 
     @DeleteMapping("/aeroports/{id}")
     public ResponseEntity<String> deleteAeroport(@PathVariable Long id) {
-        adminService.deleteAerport(id);
+        adminService.deleteAeroport(id);
         return ResponseEntity.ok("Aeroport deleted successfully.");
     }
 
-    // ------------------ VOL CRUD ------------------
-
+    // VOL CRUD
     @PostMapping("/vols")
     public ResponseEntity<String> addVol(@RequestBody Vol vol) {
         adminService.addVol(vol);
@@ -141,7 +129,7 @@ public class AdminController {
 
     @GetMapping("/vols")
     public ResponseEntity<List<Vol>> getAllVols() {
-        return ResponseEntity.ok(adminService.getAllVol());
+        return ResponseEntity.ok(adminService.getAllVols());
     }
 
     @GetMapping("/vols/{id}")
@@ -151,13 +139,9 @@ public class AdminController {
     }
 
     @PutMapping("/vols/{id}")
-    @Transactional
-    public ResponseEntity<String> updateVol(@PathVariable Long id,
-                                            @RequestParam(required = false) String codeIATA,
-                                            @RequestParam(required = false) Integer numVol,
-                                            @RequestParam(required = false) Date dateVol,
-                                            @RequestParam(required = false) String IATADest,
-                                            @RequestParam(required = false) String IATAOrig) {
+    public ResponseEntity<String> updateVol(@PathVariable Long id, @RequestParam(required = false) String codeIATA,
+                                            @RequestParam(required = false) int numVol, @RequestParam(required = false) Date dateVol,
+                                            @RequestParam(required = false) String IATADest, @RequestParam(required = false) String IATAOrig) {
         adminService.updateVol(id, codeIATA, numVol, dateVol, IATADest, IATAOrig);
         return ResponseEntity.ok("Vol updated successfully.");
     }
@@ -166,7 +150,5 @@ public class AdminController {
     public ResponseEntity<String> deleteVol(@PathVariable Long id) {
         adminService.deleteVol(id);
         return ResponseEntity.ok("Vol deleted successfully.");
-
     }
-
 }

@@ -7,14 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class AdminConfig {
+
     @Bean(name = "adminCommandLineRunner")
     CommandLineRunner adminCommandLineRunner(AdminRepo adminRepo, PasswordEncoder passwordEncoder) {
         return args -> {
-            Admin admin1 = new Admin(1L, passwordEncoder.encode("ibrahimkasmi@2003"), "ibrahimksmi68@gmail.com", "kasmi ibrahim");
-            Admin admin2 = new Admin(2L,passwordEncoder.encode( "@2003"), "ibrahimkasmi68@gmail.com", "ibrahim");
+            Admin admin1 = new Admin(passwordEncoder.encode("ibrahimkasmi@2003"), "ibrahimksmi68@gmail.com", "kasmi ibrahim");
+            Admin admin2 = new Admin(passwordEncoder.encode("@2003"), "ibrahimkasmi68@gmail.com", "ibrahim");
 
-            // Logging to confirm execution
-            System.out.println("Saving admins: " + admin1.getNom_complet() + ", " + admin2.getNom_complet());
             if (!adminRepo.existsByEmail(admin1.getEmail())) {
                 adminRepo.save(admin1);
                 System.out.println("Saved Admin 1: " + admin1.getNom_complet());
@@ -28,9 +27,8 @@ public class AdminConfig {
             } else {
                 System.out.println("Admin 2 already exists.");
             }
-
-            // Saving admins to the repository
         };
     }
-
 }
+
+

@@ -19,7 +19,10 @@ public class Admin extends UserEntity {
         super(null,Role.ADMIN, password, email, nom_complet);
     }
 
+
+
     public Admin() {
         super();
     }
+
 }

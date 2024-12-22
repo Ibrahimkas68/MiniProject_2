@@ -31,6 +31,7 @@ public class UserEntity implements UserDetails {
 
 
     private String password;
+    @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true)
     private String nom_complet;  // Changed to camelCase
@@ -82,6 +83,4 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }

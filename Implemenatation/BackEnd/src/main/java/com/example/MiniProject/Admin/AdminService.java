@@ -20,6 +20,7 @@ public class AdminService {
     private final VolRepo volRepo;
     private final AeroRepo aeroRepo;
 
+    @Autowired
     public AdminService(AdminRepo adminRepo, AvionRepo avionRepo, VolRepo volRepo, AeroRepo aeroRepo) {
         this.adminRepo = adminRepo;
         this.avionRepo = avionRepo;
@@ -31,115 +32,105 @@ public class AdminService {
         if (adminRepo.findById(admin.getId()).isPresent()) {
             throw new IllegalArgumentException("Admin with email " + admin.getEmail() + " already exists.");
         }
-
-         adminRepo.save(admin);
+        adminRepo.save(admin);
     }
 
     public List<Admin> getAll() {
-
-        return List.of();
+        return adminRepo.findAll();
     }
 
     @Transactional
-    public void updateAdmin(Long AdminId,String password, String email, String nom_complet) {
-        Admin admin = adminRepo.findById(AdminId).orElseThrow(() -> new IllegalCallerException("Admin "+nom_complet+" not founded"));
-        if(nom_complet != null && !nom_complet.equals(admin.getNom_complet())) {
+    public void updateAdmin(Long adminId, String password, String email, String nom_complet) {
+        Admin admin = adminRepo.findById(adminId)
+                .orElseThrow(() -> new IllegalArgumentException("Admin " + nom_complet + " not found"));
+
+        if (nom_complet != null && !nom_complet.equals(admin.getNom_complet())) {
             admin.setNom_complet(nom_complet);
         }
-        if(password != null && !password.equals(admin.getPassword())) {
+        if (password != null && !password.equals(admin.getPassword())) {
             admin.setPassword(password);
         }
-        if(email != null && !email.equals(admin.getEmail())) {
-            Optional<Admin> AdminOpt = adminRepo.findById(AdminId);
-            if(AdminOpt.isPresent()) {
-                throw new IllegalCallerException("Email : "+email+" already exists");
+        if (email != null && !email.equals(admin.getEmail())) {
+            Optional<Admin> existingAdmin = adminRepo.findByEmail(email);
+            if (existingAdmin.isPresent()) {
+                throw new IllegalArgumentException("Email " + email + " already exists.");
             }
             admin.setEmail(email);
         }
-
     }
 
     public Optional<Admin> getAdmin(Long adminId) {
         return adminRepo.findById(adminId);
     }
-    public void deleteAdmin(Long AdminId) {
-        adminRepo.deleteById(AdminId);
+
+    public void deleteAdmin(Long adminId) {
+        adminRepo.deleteById(adminId);
     }
-//    Avion CRUD Actions
+
+    // AVION CRUD Actions
     public void addAvion(Avion avion) {
         avionRepo.save(avion);
     }
+
     public List<Avion> getAllAvions() {
         return avionRepo.findAll();
     }
+
     public Avion getAvion(Long avionId) {
         return avionRepo.findById(avionId)
                 .orElseThrow(() -> new IllegalArgumentException("Avion with ID " + avionId + " not found."));
     }
+
     @Transactional
     public void updateAvion(Long avionId, String typeAvion, int capacite, int anneeFab, String model) {
-        // Find the Avion entity by its ID
         Avion avion = avionRepo.findById(avionId)
                 .orElseThrow(() -> new IllegalArgumentException("Avion with ID " + avionId + " not found."));
 
-        // Update the type of avion
         if (typeAvion != null && !typeAvion.isEmpty()) {
             avion.setType_avion(typeAvion);
         }
-
-        // Update the capacity
         if (capacite > 0) {
             avion.setCapacite(capacite);
         }
-
-        // Update the year of fabrication
         if (anneeFab > 0) {
             avion.setAnnee_fab(anneeFab);
         }
-
-        // Update the model
         if (model != null && !model.isEmpty()) {
             avion.setModel(model);
         }
     }
 
-
     public void deleteAvion(Long avionId) {
         avionRepo.deleteById(avionId);
     }
 
-//   Aeropot CRUD
-
+    // AEROPORT CRUD Actions
     public void addAeroport(Aero aero) {
         aeroRepo.save(aero);
     }
-    public List<Aero> getAllAeroport() {
+
+    public List<Aero> getAllAeroports() {
         return aeroRepo.findAll();
     }
-    public Aero getAero(Long AeroId) {
-        return aeroRepo.findById(AeroId)
-                .orElseThrow(() -> new IllegalArgumentException("Avion with ID " + AeroId + " not found."));
-    }
-    @Transactional
-    public void updateAero(Long id_aeroport,
-    String aeroport_IATA,
-    String nom_aeroport,
-    String ville,
-    String pays,
-    int capacite) {
-        Aero aero = aeroRepo.findById(id_aeroport)
-                .orElseThrow(() -> new IllegalArgumentException("Avion with ID " + id_aeroport + " not found."));
 
-        if (aeroport_IATA != null && !aeroport_IATA.isEmpty()) {
-            aero.setAeroport_IATA(aeroport_IATA);
+    public Aero getAero(Long aeroId) {
+        return aeroRepo.findById(aeroId)
+                .orElseThrow(() -> new IllegalArgumentException("Aeroport with ID " + aeroId + " not found."));
+    }
+
+    @Transactional
+    public void updateAero(Long idAeroport, String aeroportIATA, String nomAeroport, String ville, String pays, int capacite) {
+        Aero aero = aeroRepo.findById(idAeroport)
+                .orElseThrow(() -> new IllegalArgumentException("Aeroport with ID " + idAeroport + " not found."));
+
+        if (aeroportIATA != null && !aeroportIATA.isEmpty()) {
+            aero.setAeroport_IATA(aeroportIATA);
         }
         if (capacite > 0) {
             aero.setCapacite(capacite);
         }
-
-        // Update the model
-        if (nom_aeroport != null && !nom_aeroport.isEmpty()) {
-            aero.setNom_aeroport(nom_aeroport);
+        if (nomAeroport != null && !nomAeroport.isEmpty()) {
+            aero.setNom_aeroport(nomAeroport);
         }
         if (ville != null && !ville.isEmpty()) {
             aero.setVille(ville);
@@ -147,36 +138,30 @@ public class AdminService {
         if (pays != null && !pays.isEmpty()) {
             aero.setPays(pays);
         }
-
     }
 
-
-    public void deleteAerport(Long aeroId) {
+    public void deleteAeroport(Long aeroId) {
         aeroRepo.deleteById(aeroId);
     }
 
-    //   VOL CRUD
-
-
+    // VOL CRUD Actions
     public void addVol(Vol vol) {
         volRepo.save(vol);
     }
-    public List<Vol> getAllVol() {
+
+    public List<Vol> getAllVols() {
         return volRepo.findAll();
     }
-    public Vol getVol(Long VolId) {
-        return volRepo.findById(VolId)
-                .orElseThrow(() -> new IllegalArgumentException("Avion with ID " + VolId + " not found."));
+
+    public Vol getVol(Long volId) {
+        return volRepo.findById(volId)
+                .orElseThrow(() -> new IllegalArgumentException("Vol with ID " + volId + " not found."));
     }
+
     @Transactional
-    public void updateVol(Long id_vol,
-    String codeIATA,
-    int numVol,
-    Date dateVol,
-    String IATADest,
-    String IATAOrig) {
-        Vol vol = volRepo.findById(id_vol)
-                .orElseThrow(() -> new IllegalArgumentException("Avion with ID " + id_vol + " not found."));
+    public void updateVol(Long volId, String codeIATA, int numVol, Date dateVol, String IATADest, String IATAOrig) {
+        Vol vol = volRepo.findById(volId)
+                .orElseThrow(() -> new IllegalArgumentException("Vol with ID " + volId + " not found."));
 
         if (codeIATA != null && !codeIATA.isEmpty()) {
             vol.setCodeIATA(codeIATA);
@@ -184,22 +169,15 @@ public class AdminService {
         if (numVol > 0) {
             vol.setNumVol(numVol);
         }
-
         if (IATADest != null && !IATADest.isEmpty()) {
             vol.setIATADest(IATADest);
         }
         if (IATAOrig != null && !IATAOrig.isEmpty()) {
             vol.setIATAOrig(IATAOrig);
         }
-
     }
-
 
     public void deleteVol(Long volId) {
         volRepo.deleteById(volId);
     }
-
-
-
-
 }

@@ -1,9 +1,6 @@
 package com.example.MiniProject.Vol;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,17 +8,20 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class VolController {
     private final VolService volService;
-    public VolController(VolService volService) {
 
+    public VolController(VolService volService) {
         this.volService = volService;
     }
+
+    // Add a new Vol
     @PostMapping("/addVol")
-    public String addVol() {
-    volService.addVol();
-    return "Added Vol";
+    public String addVol(@RequestBody Vol vol) { // Accept Vol object from the request body
+        return volService.addVol(vol);
     }
-    @GetMapping("/vol")
-    public List<Vol> getVol() {
+
+    // Get all Vols
+    @GetMapping("/vols")
+    public List<Vol> getVols() {
         return volService.getVols();
     }
 }

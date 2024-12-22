@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EquipageRepo extends JpaRepository<Equipage, Integer> {
+public interface EquipageRepo extends JpaRepository<Equipage, Long> {
 
 
 

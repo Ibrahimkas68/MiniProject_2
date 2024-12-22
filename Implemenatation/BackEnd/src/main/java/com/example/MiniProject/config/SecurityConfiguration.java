@@ -1,7 +1,6 @@
 package com.example.MiniProject.config;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,6 +10,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -23,18 +30,35 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for API endpoints
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Allow all requests to specific endpoints
-                        .anyRequest().authenticated()   // Require authentication for other requests
+                        .requestMatchers("/api/**").permitAll() // Allow public access
+                        .anyRequest().authenticated() // All other routes require authentication
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Set stateless sessions
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless sessions
                 )
-                .authenticationProvider(authenticationProvider) // Add authentication provider
-                .addFilterBefore(jwtAuthFilterAuth, UsernamePasswordAuthenticationFilter.class); // Add JWT authentication filter
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilterAuth, UsernamePasswordAuthenticationFilter.class)
+                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // Disable frame options for H2 or iframes
+                .cors(withDefaults()); // Apply default CORS configuration
 
         return http.build();
     }
 
+
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowedOrigins(List.of("http://localhost:5173")); // Allowed origin
+        corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allowed HTTP methods
+        corsConfig.setAllowedHeaders(List.of("*")); // Allow all headers
+        corsConfig.setAllowCredentials(true); // Allow credentials (cookies, etc.)
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig); // Apply CORS to all endpoints
+        return source;
+    }
 }
+

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/aeroport")
+@RequestMapping(path = "/api/auth/aeroport")
 public class Aerocontroller {
     private final AeroService aeroService;
     @Autowired
