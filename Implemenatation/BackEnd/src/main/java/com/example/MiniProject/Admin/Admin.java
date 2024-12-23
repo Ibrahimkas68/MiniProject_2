@@ -1,26 +1,28 @@
 package com.example.MiniProject.Admin;
 
-import com.example.MiniProject.User.User;
-import jakarta.persistence.*;
+import com.example.MiniProject.User.Role;
+import com.example.MiniProject.User.UserEntity;
+import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.Objects;
-@Entity
+@EqualsAndHashCode(callSuper = true) // Ensures proper equals/hashCode including fields from UserEntity
 @Data
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Admin extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_admin;
+@Entity // Marks this class as a JPA entity
+public class Admin extends UserEntity {
 
-
-    public Admin(Long id_admin , String password, String email, String nomComplet) {
-        super(password, email, nomComplet);
+    public Admin(Long id, String password, String email, String nom_complet) {
+        super(id, Role.ADMIN, password, email, nom_complet);
     }
+
+    public Admin( String password, String email, String nom_complet) {
+        super(null,Role.ADMIN, password, email, nom_complet);
+    }
+
 
 
     public Admin() {
-
+        super();
     }
-    
+
 }

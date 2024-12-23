@@ -1,18 +1,21 @@
 package com.example.MiniProject.Avion;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.Objects;
+
 @Entity
 @Data
+@Table(name = "avion")
 public class Avion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "Avion_sequence",
+            sequenceName = "Avion_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "Avion_sequence")
     private Long id_avion;
     private String type_avion;
     private int capacite;

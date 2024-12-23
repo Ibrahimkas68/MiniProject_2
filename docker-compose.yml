@@ -1,0 +1,50 @@
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ibrahimkasmi
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5332:5432"
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./Implemenatation/backend
+      dockerfile: Dockerfile.backend
+    container_name: backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5332/flight_db
+      SPRING_DATASOURCE_USERNAME: ibrahimkasmi
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - db
+    ports:
+      - "8082:8080"
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Implemenatation/frontend
+      dockerfile: Dockerfile.frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    restart: unless-stopped
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db:

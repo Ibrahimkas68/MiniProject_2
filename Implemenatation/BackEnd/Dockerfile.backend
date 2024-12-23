@@ -1,0 +1,10 @@
+FROM openjdk:17-jdk-alpine
+
+# Copy the specific JAR file into the container at /app.jar
+COPY ./target/MiniProject-0.0.1-SNAPSHOT.jar /app.jar
+
+# Set author label
+LABEL authors="ibrahimkasmi"
+
+# Define the entry point for the container to run the jar file
+ENTRYPOINT ["java", "-jar", "/app.jar"]
