@@ -30,7 +30,7 @@ public class AuthenticationService {
                 .nom_complet(request.getNom_complet())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .userType(Role.PASSAGER)
+                .userType(Role.ADMIN)
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user); // Now jwtService is injected and available
