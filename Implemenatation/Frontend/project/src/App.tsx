@@ -16,7 +16,6 @@ import PrivateRoute from './components/PrivateRoute';
 import { SignupPage } from './pages/Signup';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('overview');
 
   return (
     <Router>

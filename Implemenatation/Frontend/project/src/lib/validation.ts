@@ -6,11 +6,11 @@ export const loginSchema = z.object({
 });
 
 export const registrationSchema = loginSchema.extend({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  confirmPassword: z.string(),
+  nom_complet: z.string().min(2, 'Full Name must be at least 2 characters'), // Full Name field validation
+  confirmPassword: z.string(), // Confirm password field validation
 }).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
+  message: "Passwords don't match", // Passwords must match
+  path: ["confirmPassword"], // Set error on confirmPassword field if validation fails
 });
 
 export const flightSearchSchema = z.object({

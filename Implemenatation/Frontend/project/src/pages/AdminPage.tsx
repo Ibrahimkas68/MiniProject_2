@@ -23,7 +23,7 @@ const AdminPage: React.FC = () => {
     const fetchFlights = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:8081/api/admin/vols');
+        const response = await fetch('http://localhost:8080/api/admin/vols');
         const data = await response.json();
         setFlights(data);
       } catch (error) {
@@ -45,7 +45,7 @@ const AdminPage: React.FC = () => {
   const handleAddFlight = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8081/api/admin/vols', {
+      const response = await fetch('http://localhost:8080/api/admin/vols', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,18 +57,20 @@ const AdminPage: React.FC = () => {
         throw new Error('Failed to add flight');
       }
 
-      const data = await response.json();
-      console.log('Flight added:', data);
+      // If the response is OK, we can log the success message
+      const message = await response.text(); // Get the text response
+      console.log(message);  // This will print "Vol added successfully."
 
-      // Add the new flight to the local state
-      setFlights((prevFlights) => [...prevFlights, data]);
+      // Add the new flight to the local state (if you need to update the state with the new flight data)
+      setFlights((prevFlights) => [...prevFlights, flightData]);
       alert('Flight added successfully!');
     } catch (error) {
       console.error('Error adding flight:', error);
-      alert('Failed to add flight. Please try again.');
+      alert('Failed to add flight');
     } finally {
       setLoading(false);
     }
+
   };
 
   // Handle input changes in the form
@@ -232,10 +234,10 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="flex">
-      <Sidebar 
-        activeSection={activeSection} 
-        setActiveSection={setActiveSection} 
-        onSectionChange={setActiveSection} 
+      <Sidebar
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+        onSectionChange={setActiveSection}
       />
       <div className="flex-1 p-8">
         <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>

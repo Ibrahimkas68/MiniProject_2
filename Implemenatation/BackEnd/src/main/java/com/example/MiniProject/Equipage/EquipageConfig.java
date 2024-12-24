@@ -15,8 +15,13 @@ public class EquipageConfig {
                     "John Doe", "Pilot", 12345, "American");
             Equipage equipage2 = new Equipage(Role.EQUIPAGE, "password456", "crew@example.com",
                     "Jane Doe", "Flight Attendant", 67890, "Canadian");
-            equipageRepo.save(equipage1);
-            equipageRepo.save(equipage2);
+
+            if (!equipageRepo.existsByEmail("captain@example.com")) {
+                equipageRepo.save(equipage1);
+            }
+            if (!equipageRepo.existsByEmail("crew@example.com")) {
+                equipageRepo.save(equipage2);
+            }
         };
     }
 }

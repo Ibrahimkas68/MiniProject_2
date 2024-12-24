@@ -28,14 +28,14 @@ export interface User {
   id: string;
   email: string;
   fullName: string;
-  role: string;
+  userType: string;
   lastLogin: string;
 }
 
 // Adjusted the status field to a specific union type.
 export interface Flight {
   id: string;
-  id_vol: number ;
+  id_vol: number;
   from: string;
   to: string;
   departureTime: string;

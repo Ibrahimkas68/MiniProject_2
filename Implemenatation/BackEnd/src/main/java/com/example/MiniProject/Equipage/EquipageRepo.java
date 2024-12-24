@@ -9,5 +9,5 @@ import java.util.List;
 public interface EquipageRepo extends JpaRepository<Equipage, Long> {
 
 
-
+    boolean existsByEmail(String mail);
 }

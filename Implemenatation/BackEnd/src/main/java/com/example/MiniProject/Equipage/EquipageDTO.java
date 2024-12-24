@@ -9,9 +9,9 @@ public class EquipageDTO {
     // Getters and Setters
     private String password;
     private String email;
-    private String nomComplet;
+    private String nom_complet;
     private String fonction;
-    private int numLicence;
+    private int num_licence;
     private String nationalite;
 
     public void setPassword(String password) {
@@ -22,16 +22,16 @@ public class EquipageDTO {
         this.email = email;
     }
 
-    public void setNomComplet(String nomComplet) {
-        this.nomComplet = nomComplet;
+    public void setNomComplet(String nom_complet) {
+        this.nom_complet = nom_complet;
     }
 
     public void setFonction(String fonction) {
         this.fonction = fonction;
     }
 
-    public void setNumLicence(int numLicence) {
-        this.numLicence = numLicence;
+    public void setNumLicence(int num_licence) {
+        this.num_licence = num_licence;
     }
 
     public void setNationalite(String nationalite) {

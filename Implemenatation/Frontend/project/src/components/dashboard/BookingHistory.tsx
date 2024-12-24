@@ -15,7 +15,7 @@ export const BookingHistory = () => {
         <p className="text-text-muted">No bookings found.</p>
       ) : (
         <div className="space-y-4">
-          {bookings.map((booking, index) => (
+          {bookings.map((_booking, index) => (
             <div
               key={index} // Use index if `booking` isn't guaranteed to be unique
               className="border border-gray-700 rounded-lg p-4 hover:border-primary transition-colors"
