@@ -47,13 +47,13 @@ static/ and templates/ (if using front-end components): Holds static assets and 
 Contributors:
 Student 1: ([OUSGHOU Hajar](https://www.linkedin.com/in/hajar-ousghou-38044622b/), Role)
 
-Student 2: ([Hasnae Oulhmous](https://www.linkedin.com/in/hajar-ousghou-38044622b/](https://www.linkedin.com/in/hasnae-oulhmous-168a68272/), Role)
+Student 2: ([Hasnae Oulhmous](https://www.linkedin.com/in/hasnae-oulhmous-168a68272/), Role)
 
-Student 3: ([KASMI Ibrahim](https://www.linkedin.com/in/hajar-ousghou-38044622b/](https://www.linkedin.com/in/ibrahim-kasmi/), Role)
+Student 3: ([KASMI Ibrahim](https://www.linkedin.com/in/ibrahim-kasmi/), Role)
 
-Student 4: ([Mounir ELhattab](https://www.linkedin.com/in/hajar-ousghou-38044622b/](https://www.linkedin.com/in/mounir-el-hattab-6bb294296/), Role)
+Student 4: ([Mounir ELhattab](https://www.linkedin.com/in/mounir-el-hattab-6bb294296/), Role)
 
-Student 5: ([OMARROUK Ayman](https://www.linkedin.com/in/hajar-ousghou-38044622b/](https://www.linkedin.com/in/ayman-marrouk-1793151b8/), Role)
+Student 5: ([OMARROUK Ayman](https://www.linkedin.com/in/ayman-marrouk-1793151b8/), Role)
 
 ## Supervisor
 Supervisor: [Prof. Bahaa Eddine ELBAGHAZAOUI](https://www.linkedin.com/in/bahaa-eddine/).
