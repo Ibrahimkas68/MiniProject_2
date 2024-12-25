@@ -11,7 +11,7 @@ const BookNowButton: React.FC<BookNowButtonProps> = ({ className }) => {
       className={`absolute right-[87%] top-[80%] flex items-center justify-center bg-[#19232d] border-2 border-[#dcbb87] px-7 py-2 rounded-[22px] text-white text-[16px] transition-transform duration-300 hover:bg-[#dcbb87] z-50 ${className}`}
     >
       <a
-        href="#book"
+        href="/flights"
         className="flex items-center no-underline text-white"
       >
         {/* Ensure hover applies to the Plane icon */}

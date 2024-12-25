@@ -1,16 +1,42 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import emailjs from 'emailjs-com';
 
 export const ContactPage = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data: any) => {
-    // Simulate form submission
-    toast.success('Message sent successfully!');
-    reset();
+    const templateParams = {
+      name: data.name,
+      email: data.email,
+      message: data.message,
+    };
+
+    emailjs
+      .send(
+        'service_mp9zzow', // Replace with your EmailJS Service ID
+        'template_2t7bdke', // Replace with your EmailJS Template ID
+        templateParams,
+        'ZoLlarF2zl_qY6FhZ' // Replace with your EmailJS API Key
+      )
+      .then(
+        () => {
+          toast.success('Message sent successfully!');
+          reset();
+        },
+        (error) => {
+          toast.error('Failed to send the message. Please try again.');
+          console.error('Error:', error);
+        }
+      );
   };
 
   return (
@@ -27,9 +53,10 @@ export const ContactPage = () => {
           </p>
         </motion.div>
 
+        {/* Contact Info Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {[
-            { icon: Phone, title: 'Phone', info: '	+212 522 48 97 97' },
+            { icon: Phone, title: 'Phone', info: '+212 522 48 97 97' },
             { icon: Mail, title: 'Email', info: 'Ram_France@royalairmaroc.com' },
             { icon: MapPin, title: 'Address', info: '38 Avenue de l’Opéra 75002 Paris' },
           ].map((item, index) => (
@@ -49,6 +76,7 @@ export const ContactPage = () => {
           ))}
         </div>
 
+        {/* Contact Form */}
         <div className="max-w-2xl mx-auto">
           <motion.form
             initial={{ opacity: 0 }}
@@ -103,6 +131,6 @@ export const ContactPage = () => {
           </motion.form>
         </div>
       </div>
-    </div>
-  );
+    </div>
+  );
 };

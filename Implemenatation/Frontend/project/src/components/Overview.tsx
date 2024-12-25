@@ -1,4 +1,3 @@
-import React from 'react';
 import { Users, Plane, Building2, MapPin } from 'lucide-react';
 import StatCard from './StatCard';
 

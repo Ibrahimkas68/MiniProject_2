@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import Overview from '../components/Overview';
+import Equipage from '../components/Equipage';
+import Aeroport from '../components/Aeroport';
 import { useAuthStore } from '../lib/store';
+import Aircraft from "../components/aircraft.tsx";
 
 const AdminPage: React.FC = () => {
   const { user, isAuthenticated } = useAuthStore(); // Authentication state
@@ -57,20 +61,15 @@ const AdminPage: React.FC = () => {
         throw new Error('Failed to add flight');
       }
 
-      // If the response is OK, we can log the success message
-      const message = await response.text(); // Get the text response
-      console.log(message);  // This will print "Vol added successfully."
+      const data = await response.json();
+      console.log('Flight added:', data);
 
-      // Add the new flight to the local state (if you need to update the state with the new flight data)
-      setFlights((prevFlights) => [...prevFlights, flightData]);
+      // Add the new flight to the local state
+      setFlights((prevFlights) => [...prevFlights, data]);
       alert('Flight added successfully!');
-    } catch (error) {
-      console.error('Error adding flight:', error);
-      alert('Failed to add flight');
     } finally {
       setLoading(false);
     }
-
   };
 
   // Handle input changes in the form
@@ -86,8 +85,14 @@ const AdminPage: React.FC = () => {
   const renderContent = () => {
     switch (activeSection) {
       case 'overview':
-        return <div>Overview Section</div>;
-      case 'flights':
+        return <Overview />;
+      case 'equipage':
+        return <Equipage />;
+      case 'airports':
+        return <Aeroport />;
+      case 'aircraft':
+        return <Aircraft />;
+        case 'flights':
         return (
           <div className="overflow-hidden rounded-lg shadow">
             <h2 className="text-xl font-semibold mb-4 text-white">Add Flight</h2>

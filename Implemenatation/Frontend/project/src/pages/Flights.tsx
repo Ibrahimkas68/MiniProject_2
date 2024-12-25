@@ -12,7 +12,7 @@ export const FlightsPage = () => {
   useEffect(() => {
     const fetchFlights = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/api/admin/vols`);
+        const response = await fetch(`http://localhost:8080/api/admin/vols`);
         if (response.ok) {
           const data = await response.json();
           setFlights(data);
@@ -39,21 +39,23 @@ export const FlightsPage = () => {
         </motion.div>
 
         {/* Flights List */}
+        {/* Flights List */}
         <div className="space-y-6">
-          {flights.map((flight) => (
-            <motion.div
-              key={flight.id || `${flight.iataorig}-${flight.iatadest}`} // Ensure unique key
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <FlightCard
-                flight={flight}
-                onSelect={(selectedFlight) => setSelectedFlight(selectedFlight)}
-              />
-            </motion.div>
+          {flights.map((flight, index) => (
+              <motion.div
+                  key={flight.id || `${flight.iataorig}-${flight.iatadest}-${index}`} // Add index as a fallback
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+              >
+                <FlightCard
+                    flight={flight}
+                    onSelect={(selectedFlight) => setSelectedFlight(selectedFlight)}
+                />
+              </motion.div>
           ))}
         </div>
+
       </div>
     </div>
   );

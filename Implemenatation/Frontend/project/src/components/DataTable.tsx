@@ -1,4 +1,3 @@
-//DataTable.tsx :
 import React, { useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 
@@ -7,35 +6,49 @@ interface DataTableProps {
   columns: { key: string; label: string }[];
   data: { [key: string]: any }[];
   onAdd: (newItem: any) => void;
-  onEdit: (item: any) => void;
+  onEdit: (updatedItem: any) => void;
   onDelete: (item: any) => void;
 }
 
 export default function DataTable({
   title,
   columns,
+  data,
   onAdd,
   onEdit,
   onDelete,
 }: DataTableProps) {
-  const [data, setData] = useState<any[]>([]); // Manage the table data state
-  const [showForm, setShowForm] = useState(false); // State to toggle the form visibility
+  const [showForm, setShowForm] = useState(false);
   const [newItem, setNewItem] = useState<any>(
-    columns.reduce((acc, column) => ({ ...acc, [column.key]: '' }), {}) // Initialize form fields based on columns
+    columns
+      .filter((column) => column.key !== 'actions')
+      .reduce((acc, column) => ({ ...acc, [column.key]: '' }), {})
   );
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editedItem, setEditedItem] = useState<any>({});
 
-  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
     setNewItem({ ...newItem, [key]: e.target.value });
   };
 
-  // Handle add item
+  const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
+    setEditedItem({ ...editedItem, [key]: e.target.value });
+  };
+
   const handleAddItem = () => {
-    // Ensure the new item corresponds to the column keys correctly
     onAdd(newItem);
-    setData([...data, newItem]); // Add the new item to the data array
-    setShowForm(false); // Hide the form after adding
-    setNewItem(columns.reduce((acc, column) => ({ ...acc, [column.key]: '' }), {})); // Reset the form
+    setShowForm(false);
+    setNewItem(
+      columns
+        .filter((column) => column.key !== 'actions')
+        .reduce((acc, column) => ({ ...acc, [column.key]: '' }), {})
+    );
+  };
+
+  const handleEditSave = (index: number) => {
+    onEdit(editedItem);
+    setEditingIndex(null);
+    setEditedItem({});
   };
 
   return (
@@ -56,7 +69,7 @@ export default function DataTable({
               />
             </div>
             <button
-              onClick={() => setShowForm(true)} // Show the form when clicked
+              onClick={() => setShowForm(true)}
               className="flex items-center space-x-2 bg-[#C3423F] text-white px-4 py-2 rounded-lg hover:bg-[#A33935] transition-colors"
             >
               <Plus size={20} />
@@ -69,18 +82,22 @@ export default function DataTable({
       {showForm && (
         <div className="p-6 border-t border-gray-700 bg-background">
           <div className="space-y-4">
-            {columns.map((column) => (
-              <div key={column.key}>
-                <label className="block text-sm font-medium text-text-muted">{column.label}</label>
-                <input
-                  type="text"
-                  value={newItem[column.key]} // Ensure the input value corresponds to the column key
-                  onChange={(e) => handleInputChange(e, column.key)}
-                  className="w-full mt-1 px-4 py-2 bg-background border border-gray-700 rounded-md text-text placeholder-gray-500 focus:outline-none focus:border-primary"
-                  placeholder={`Enter ${column.label}`}
-                />
-              </div>
-            ))}
+            {columns
+              .filter((column) => column.key !== 'actions')
+              .map((column) => (
+                <div key={column.key}>
+                  <label className="block text-sm font-medium text-text-muted">
+                    {column.label}
+                  </label>
+                  <input
+                    type="text"
+                    value={newItem[column.key]}
+                    onChange={(e) => handleInputChange(e, column.key)}
+                    className="w-full mt-1 px-4 py-2 bg-background border border-gray-700 rounded-md text-text placeholder-gray-500 focus:outline-none focus:border-primary"
+                    placeholder={`Enter ${column.label}`}
+                  />
+                </div>
+              ))}
             <button
               onClick={handleAddItem}
               className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary-dark transition-colors"
@@ -109,20 +126,53 @@ export default function DataTable({
           <tbody className="divide-y divide-gray-700">
             {data.map((item, index) => (
               <tr key={index} className="hover:bg-background transition-colors">
-                {columns.map((column) => (
-                  <td key={column.key} className="px-6 py-4 whitespace-nowrap text-text">
-                    {item[column.key]}
-                  </td>
-                ))}
+                {editingIndex === index ? (
+                  // Editable row
+                  columns.map((column) =>
+                    column.key !== 'actions' ? (
+                      <td key={column.key} className="px-6 py-4 whitespace-nowrap">
+                        <input
+                          type="text"
+                          value={editedItem[column.key] || item[column.key]}
+                          onChange={(e) => handleEditInputChange(e, column.key)}
+                          className="w-full bg-background border border-gray-700 px-2 py-1 rounded"
+                        />
+                      </td>
+                    ) : null
+                  )
+                ) : (
+                  // Regular row
+                  columns.map((column) => (
+                    <td key={column.key} className="px-6 py-4 whitespace-nowrap text-text">
+                      {item[column.key]}
+                    </td>
+                  ))
+                )}
                 <td className="px-6 py-4 whitespace-nowrap text-right">
-                <button
-                    onClick={() => onEdit(item)}
-                    className="text-[#28666E] hover:text-[#1D4B52] mr-4 transition-colors"
-                  >
-                    Edit
-                  </button>
+                  {editingIndex === index ? (
+                    <button
+                      onClick={() => handleEditSave(index)}
+                      className="text-[#28666E] hover:text-[#1D4B52] mr-4 transition-colors"
+                    >
+                      Save
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setEditingIndex(index);
+                        setEditedItem(item);
+                      }}
+                      className="text-[#28666E] hover:text-[#1D4B52] mr-4 transition-colors"
+                    >
+                      Edit
+                    </button>
+                  )}
                   <button
-                    onClick={() => onDelete(item)}
+                    onClick={() => {
+                      if (window.confirm('Are you sure you want to delete this item?')) {
+                        onDelete(item);
+                      }
+                    }}
                     className="text-[#C3423F] hover:text-[#A33935] transition-colors"
                   >
                     Delete

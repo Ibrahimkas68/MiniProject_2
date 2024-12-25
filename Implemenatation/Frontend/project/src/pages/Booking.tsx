@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 export const BookingPage = () => {
   const navigate = useNavigate();
   const { selectedFlight } = useFlightStore();
-  const { isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated } = useAuthStore();
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(bookingSchema),
   });
@@ -26,7 +26,7 @@ export const BookingPage = () => {
     return null;
   }
 
-  const onSubmit = (_data: any) => {
+  const onSubmit = (data: any) => {
     if (!isAuthenticated) {
       toast.error('Please login to complete your booking');
       navigate('/login');

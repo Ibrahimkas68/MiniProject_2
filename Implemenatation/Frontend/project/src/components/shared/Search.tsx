@@ -24,10 +24,8 @@ export const Search = () => {
     const searchResults = [
       {
         id: '1',
-        id_vol: 'SW123',
-        flightNumber: 'SW123',
-        origin: data.from,
-        destination: data.to,
+        from: data.from,
+        to: data.to,
         departureTime: `${data.date}T10:00:00`,
         arrivalTime: `${data.date}T22:00:00`,
         price: 599,
@@ -36,10 +34,8 @@ export const Search = () => {
       },
       {
         id: '2',
-        id_vol: 'SW124',
-        flightNumber: 'SW124',
-        origin: data.from,
-        destination: data.to,
+        from: data.from,
+        to: data.to,
         departureTime: `${data.date}T14:00:00`,
         arrivalTime: `${data.date}T16:30:00`,
         price: 499,

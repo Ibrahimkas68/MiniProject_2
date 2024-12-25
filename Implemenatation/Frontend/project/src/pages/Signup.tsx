@@ -22,6 +22,6 @@ export const SignupPage: React.FC = () => {
           </p>
         </div>
       </motion.div>
-    </div>
-  );
+    </div>
+  );
 };

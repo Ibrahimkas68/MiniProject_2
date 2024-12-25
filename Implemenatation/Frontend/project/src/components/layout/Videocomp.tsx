@@ -7,7 +7,7 @@ const NewsCard: React.FC = () => {
   const description =
     'Lorem ipsum dolor sit amet consectetur. Sed leo sit semper sed facilisis ultrices urna eu. In tellus interdum vel ac massa interdum viverra elementum auctor.';
   const date = 'Dec 10, 2024';
-  const url = '/news/project-update';
+  const url = '/flights';
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);

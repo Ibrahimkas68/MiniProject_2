@@ -34,8 +34,8 @@ export const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Support</h3>
             <div className="flex flex-col space-y-2">
               <Link to="/faq" className="text-text-muted hover:text-primary transition-colors">FAQ</Link>
-              <Link to="/privacy" className="text-text-muted hover:text-primary transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="text-text-muted hover:text-primary transition-colors">Terms & Conditions</Link>
+              <Link to="/PrivacyPolicy" className="text-text-muted hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link to="/TermsAndConditions" className="text-text-muted hover:text-primary transition-colors">Terms & Conditions</Link>
               <Link to="/support" className="text-text-muted hover:text-primary transition-colors">Customer Support</Link>
             </div>
           </div>
@@ -43,16 +43,20 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-text-muted hover:text-primary transition-colors">
+              <a href="https://www.facebook.com/RoyalAirMaroc/?locale=fr_FR"   target="_blank"
+                  className="text-text-muted hover:text-primary transition-colors">
                 <Facebook className="h-6 w-6" />
               </a>
-              <a href="#" className="text-text-muted hover:text-primary transition-colors">
+              <a href="https://x.com/RAM_Maroc"   target="_blank"
+                  className="text-text-muted hover:text-primary transition-colors">
                 <Twitter className="h-6 w-6" />
               </a>
-              <a href="#" className="text-text-muted hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/royalairmaroc/?hl=en"   target="_blank"
+                 className="text-text-muted hover:text-primary transition-colors">
                 <Instagram className="h-6 w-6" />
               </a>
-              <a href="#" className="text-text-muted hover:text-primary transition-colors">
+              <a href="https://www.linkedin.com/company/royal-air-maroc/"   target="_blank"
+                 className="text-text-muted hover:text-primary transition-colors">
                 <Linkedin className="h-6 w-6" />
               </a>
             </div>

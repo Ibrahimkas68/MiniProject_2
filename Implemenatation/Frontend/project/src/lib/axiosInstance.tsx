@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
 export default axiosInstance;
 async function refreshToken() {
   try {
-    const response = await axios.post('http://localhost:8080/api/auth/refresh', {}, {
+    const response = await axios.post('http://localhost:8081/api/auth/refresh', {}, {
       headers: {
         'Content-Type': 'application/json',
       },

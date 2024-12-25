@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode'; // Correct import
+import { jwtDecode } from "jwt-decode"; // Correct import
 
 /**
  * Retrieves the JWT token from localStorage.

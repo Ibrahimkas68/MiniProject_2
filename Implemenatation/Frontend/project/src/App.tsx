@@ -14,8 +14,12 @@ import AdminPage from './pages/AdminPage';
 import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './components/PrivateRoute';
 import { SignupPage } from './pages/Signup';
+import FaqPage from './pages/Faq';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
 
 function App() {
+  const [activeSection, setActiveSection] = useState('overview');
 
   return (
     <Router>
@@ -30,6 +34,9 @@ function App() {
           <Route path="/about" element={<><Navbar /><AboutPage /><Footer /></>} />
           <Route path="/contact" element={<><Navbar /><ContactPage /><Footer /></>} />
           <Route path="/register" element={<><Navbar /><SignupPage /><Footer /></>} />
+          <Route path="/faq" element={<><Navbar /><FaqPage /><Footer /></>} />
+          <Route path="/PrivacyPolicy" element={<><Navbar /><PrivacyPolicy /><Footer /></>} />
+          <Route path="/TermsAndConditions" element={<><Navbar /><TermsAndConditions /><Footer /></>} />
 
 
           {/* Protected Routes */}
